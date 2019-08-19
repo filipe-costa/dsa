@@ -2,7 +2,7 @@
 
 #### Description
 
-Based on Andrei Neagoie course at [Udemy](https://www.udemy.com/course/master-the-coding-interview-data-structures-algorithms).
+This repository is based on Andrei Neagoie course at [Udemy](https://www.udemy.com/course/master-the-coding-interview-data-structures-algorithms).
 
 #### Content
 
