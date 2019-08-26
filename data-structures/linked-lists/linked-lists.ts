@@ -183,8 +183,10 @@ class DoubleLinkedList {
       if (node && node.next === null){
         // Sometimes the previous node of the current node, can be the head
         // We check for if node.prev.prev is null for the head
+        // Then the current node has to be the new head
         if(node.prev.prev === null) {
           node.prev = null
+          this.head = node
         } else {
           node = node.prev
         }
