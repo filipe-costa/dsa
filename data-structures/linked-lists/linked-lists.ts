@@ -189,13 +189,15 @@ class DoubleLinkedList {
           this.head = node
         } else {
           node = node.prev
+          node.next = null
         }
         this.tail = node
       } else if(node) {
         node.next.prev = node.prev
       }
 
-      // Edge case where there is only one node and we want to remove it.
+      // Edge case where there was only one node and we want to removed it.
+      // We want to reset the nodes back to null
       if(node === null) {
         this.head = node
         this.tail = this.head
