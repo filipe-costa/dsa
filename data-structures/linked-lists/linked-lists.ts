@@ -145,16 +145,20 @@ class DoubleLinkedList {
     }
   }
 
-  insert = (value: number, replace: number) => {
+  insert = (replace: number, value: number) => {
     if(this.head !== null){
       let node = this.head
       while(node.value !== replace){
         node = node.next
       }
-      const temp = node.next
+      const currentNode = node
       const newNode = new DoubleLinkedListNode(value)
-      newNode.next = temp
-      node.next = newNode
+      newNode.next = currentNode.next
+      newNode.prev = currentNode
+      currentNode.next = newNode
+      if(newNode.next === null) {
+        this.tail = newNode
+      }
       this.size++
       return this.head
     }
@@ -163,12 +167,38 @@ class DoubleLinkedList {
   remove = (value: number) => {
     if(this.head !== null) {
       let node = this.head
-      while(node.next.value !== value) {
+      while(node && node.value !== value) {
         node = node.next
       }
-      const temp = node.next.next
-      node.next = temp
-      this.tail = node
+      
+      // Handle removal of the first node
+      if (node && node.prev === null){
+        node = node.next
+        this.head = node
+      } else if(node) {
+        node.prev.next = node.next
+      }
+
+      // Handle removal of the last node
+      if (node && node.next === null){
+        // Sometimes the previous node of the current node, can be the head
+        // We check for if node.prev.prev is null for the head
+        if(node.prev.prev === null) {
+          node.prev = null
+        } else {
+          node = node.prev
+        }
+        this.tail = node
+      } else if(node) {
+        node.next.prev = node.prev
+      }
+
+      // Edge case where there is only one node and we want to remove it.
+      if(node === null) {
+        this.head = node
+        this.tail = this.head
+      }
+      
       this.size--
       return this.head
     }
@@ -178,13 +208,14 @@ class DoubleLinkedList {
     return this.size
   }
 
-  printList = () => {
+  printList = (text?: string) => {
     let arr = []
     let node = this.head
     while(node !== null){
       arr.push(node.value)
       node = node.next
     }
+    console.log(`${text}`)
     console.log("Forwards: \n", arr)
 
     arr = []
@@ -193,32 +224,43 @@ class DoubleLinkedList {
       arr.push(node.value)
       node = node.prev
     }
+    console.log(`${text}`)
     console.log("Backwards: \n", arr)
   }
 
 }
 
-const linkedList = new LinkedList()
-linkedList.printList("Appending at the head")
-linkedList.append(10)
-linkedList.printList("Appending to the head since empty")
-linkedList.append(15)
-linkedList.printList("Appending")
-linkedList.insert(10, 7)
-linkedList.printList("Insertion")
-linkedList.prepend(20)
-linkedList.printList("Prepending at head")
-linkedList.append(9)
-linkedList.printList("Appending")
-linkedList.remove(7)
-linkedList.printList("Removal")
-linkedList.remove(9)
-linkedList.printList("Removal")
-linkedList.insert(15, 9)
-linkedList.printList("Insertion at the tail")
+// const linkedList = new LinkedList()
+// linkedList.printList("Appending at the head")
+// linkedList.append(10)
+// linkedList.printList("Appending to the head since empty")
+// linkedList.append(15)
+// linkedList.printList("Appending")
+// linkedList.insert(10, 7)
+// linkedList.printList("Insertion")
+// linkedList.prepend(20)
+// linkedList.printList("Prepending at head")
+// linkedList.append(9)
+// linkedList.printList("Appending")
+// linkedList.remove(7)
+// linkedList.printList("Removal")
+// linkedList.remove(9)
+// linkedList.printList("Removal")
+// linkedList.insert(15, 9)
+// linkedList.printList("Insertion at the tail")
 
 const doubleLinkedList = new DoubleLinkedList()
 doubleLinkedList.append(20)
 doubleLinkedList.append(10)
+doubleLinkedList.insert(10, 15)
 doubleLinkedList.prepend(30)
-doubleLinkedList.printList()
+doubleLinkedList.remove(10)
+doubleLinkedList.printList("Removal")
+doubleLinkedList.remove(15)
+doubleLinkedList.printList("Removal")
+doubleLinkedList.remove(30)
+doubleLinkedList.printList("Removal")
+doubleLinkedList.remove(20)
+doubleLinkedList.printList("Removal")
+doubleLinkedList.append(20)
+doubleLinkedList.printList("Adding a new node after removing all of them")
