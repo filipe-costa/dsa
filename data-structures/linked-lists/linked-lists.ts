@@ -53,10 +53,10 @@ class LinkedList {
       const temp = node.next
       const newNode = new LinkedListNode(value)
       newNode.next = temp
+      node.next = newNode
       if(temp === null){
         this.tail = newNode
       }
-      node.next = newNode
       this.size++
       return this.head
     }
@@ -74,6 +74,25 @@ class LinkedList {
       this.size--
       return this.head
     }
+  }
+
+  reverse = () => {
+    if(!this.head.next) {
+      return this.head
+    }
+
+    let firstNode = this.head
+    let nextNode = firstNode.next
+    
+    while(nextNode !== null){
+      const temp = nextNode.next
+      nextNode.next = firstNode
+      firstNode = nextNode
+      nextNode = temp
+    }
+  
+    this.head.next = null
+    this.head = firstNode
   }
 
   length = () => {
@@ -232,6 +251,42 @@ class DoubleLinkedList {
     console.log("Backwards: \n", arr)
   }
 
+  reverse = () => {
+    if(!this.head.next) {
+      return this.head
+    }
+
+    let firstNode = this.head
+    let nextNode = firstNode.next
+    
+    while(nextNode !== null){
+      const temp = nextNode.next
+      nextNode.next = firstNode
+      firstNode = nextNode
+      nextNode = temp
+    }
+  
+    this.head.next = null
+    this.head = firstNode
+
+    if(!this.tail.prev){
+      return this.tail
+    }
+
+    let lastNode = this.tail
+    let prevNode = lastNode.prev
+
+    while(prevNode !== null){
+      const temp = prevNode.prev
+      prevNode.prev = lastNode
+      lastNode = prevNode
+      prevNode = temp
+    }
+
+    this.tail.prev = null
+    this.tail = lastNode
+  }
+
 }
 
 // const linkedList = new LinkedList()
@@ -252,19 +307,26 @@ class DoubleLinkedList {
 // linkedList.printList("Removal")
 // linkedList.insert(15, 9)
 // linkedList.printList("Insertion at the tail")
+// linkedList.printList("Before reversing linked list")     
+// linkedList.reverse()
+// linkedList.printList("After reversing linked list")                                                         
 
 const doubleLinkedList = new DoubleLinkedList()
 doubleLinkedList.append(20)
 doubleLinkedList.append(10)
 doubleLinkedList.insert(10, 15)
 doubleLinkedList.prepend(30)
-doubleLinkedList.remove(10)
-doubleLinkedList.printList("Removal")
-doubleLinkedList.remove(15)
-doubleLinkedList.printList("Removal")
-doubleLinkedList.remove(30)
-doubleLinkedList.printList("Removal")
-doubleLinkedList.remove(20)
-doubleLinkedList.printList("Removal")
-doubleLinkedList.append(20)
-doubleLinkedList.printList("Adding a new node after removing all of them")
+doubleLinkedList.printList("Before reversing linked list")     
+doubleLinkedList.reverse()
+doubleLinkedList.printList("After reversing linked list")   
+
+// doubleLinkedList.remove(10)
+// doubleLinkedList.printList("Removal")
+// doubleLinkedList.remove(15)
+// doubleLinkedList.printList("Removal")
+// doubleLinkedList.remove(30)
+// doubleLinkedList.printList("Removal")
+// doubleLinkedList.remove(20)
+// doubleLinkedList.printList("Removal")
+// doubleLinkedList.append(20)
+// doubleLinkedList.printList("Adding a new node after removing all of them")
