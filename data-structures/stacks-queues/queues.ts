@@ -19,7 +19,7 @@ class LinkedListNode<ListNodeType>{
 }
 
 
-class Queue {
+class ListQueue {
   first = null
   last = null
   length = 0
@@ -56,7 +56,7 @@ class Queue {
   }
 }
 
-const queue = new Queue()
+const queue = new ListQueue()
 queue.enqueue("google")
 queue.enqueue("discord")
 queue.enqueue("facebook")
