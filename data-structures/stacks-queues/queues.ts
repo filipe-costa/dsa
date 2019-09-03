@@ -4,13 +4,7 @@
 
 // LinkedLists: Pop the head from the list and let the next element in the queue be the new head
 
-interface ListNodeType {
-  value: number | null,
-  next?: null
-}
-
-
-class LinkedListNode<ListNodeType>{
+class LinkedListNode{
   value = null
   next = null
   constructor(value){

@@ -4,11 +4,6 @@
 
 // LinkedLists: Pop the top from the list and let the next element in the stack be the new top
 
-interface ListNodeType {
-  value: number | null,
-  next?: null
-}
-
 class LinkedListNode<ListNodeType>{
   value = null
   next = null
